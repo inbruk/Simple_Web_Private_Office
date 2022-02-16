@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище InternetUserAccountModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PersonalAccount" Type="bigint" Nullable="false" />
+          <Property Name="Balance" Type="int" Nullable="false" />
+          <Property Name="RecommendedPayment" Type="int" Nullable="false" />
+          <Property Name="Credit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ShortTariffName" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="UsagesCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblServiceUsage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="User" Type="int" Nullable="false" />
+          <Property Name="Service" Type="int" Nullable="false" />
+          <Property Name="BeginUsage" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndUsage" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="TotalPayment" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Account" Type="int" />
+          <Property Name="Blocked" Type="bit" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="WebPage" Type="nvarchar" MaxLength="200" />
+          <Property Name="ICQ" Type="nvarchar" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUserType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "InternetUserAccount.dbo.vwServiceUsageService" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vwServiceUsageService">
+          <Key>
+            <PropertyRef Name="ServiceUsageId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="BeginUsage" />
+            <PropertyRef Name="EndUsage" />
+            <PropertyRef Name="TotalPayment" />
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="ServiceShortTariffName" />
+            <PropertyRef Name="ServiceComment" />
+            <PropertyRef Name="ServiceCreationDate" />
+            <PropertyRef Name="ServicePrice" />
+            <PropertyRef Name="ServiceUsagesCount" />
+          </Key>
+          <Property Name="ServiceUsageId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="BeginUsage" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndUsage" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="TotalPayment" Type="int" Nullable="false" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ServiceShortTariffName" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="ServiceComment" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ServiceCreationDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ServicePrice" Type="int" Nullable="false" />
+          <Property Name="ServiceUsagesCount" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "InternetUserAccount.dbo.vwUserAccountUserType" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vwUserAccountUserType">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Blocked" />
+            <PropertyRef Name="CreationDate" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PassportNumber" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="MobilePhone" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="TypeId" />
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="TypeComment" />
+            <PropertyRef Name="AccountId" />
+            <PropertyRef Name="AccountPersonalAccount" />
+            <PropertyRef Name="AccountBalance" />
+            <PropertyRef Name="AccountRecommendedPayment" />
+            <PropertyRef Name="AccountCredit" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Blocked" Type="bit" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="WorkPhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="WebPage" Type="nvarchar" MaxLength="200" />
+          <Property Name="ICQ" Type="nvarchar" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="TypeComment" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="AccountPersonalAccount" Type="bigint" Nullable="false" />
+          <Property Name="AccountBalance" Type="int" Nullable="false" />
+          <Property Name="AccountRecommendedPayment" Type="int" Nullable="false" />
+          <Property Name="AccountCredit" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblServiceUsage_tblService">
+          <End Role="tblServiceUsage" Type="Self.tblServiceUsage" Multiplicity="1" />
+          <End Role="tblServiceUsage1" Type="Self.tblServiceUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceUsage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblServiceUsage1">
+              <PropertyRef Name="Service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceUsage_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblServiceUsage" Type="Self.tblServiceUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblServiceUsage">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblAccount">
+          <End Role="tblAccount" Type="Self.tblAccount" Multiplicity="0..1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblUserType">
+          <End Role="tblUserType" Type="Self.tblUserType" Multiplicity="1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="prcServiceUsage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="onlyUsersWithUsageNow" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="prcUserAccountServiceUsage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userType" Type="int" Mode="In" />
+          <Parameter Name="onlyUsersWithUsageNow" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище InternetUserAccountModelContainer">
+          <EntitySet Name="tblAccount" EntityType="Self.tblAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblService" EntityType="Self.tblService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblServiceUsage" EntityType="Self.tblServiceUsage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserType" EntityType="Self.tblUserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwServiceUsageService" EntityType="Self.vwServiceUsageService" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwServiceUsageService].[ServiceUsageId] AS [ServiceUsageId], 
+    [vwServiceUsageService].[UserId] AS [UserId], 
+    [vwServiceUsageService].[BeginUsage] AS [BeginUsage], 
+    [vwServiceUsageService].[EndUsage] AS [EndUsage], 
+    [vwServiceUsageService].[TotalPayment] AS [TotalPayment], 
+    [vwServiceUsageService].[ServiceId] AS [ServiceId], 
+    [vwServiceUsageService].[Name] AS [Name], 
+    [vwServiceUsageService].[ServiceShortTariffName] AS [ServiceShortTariffName], 
+    [vwServiceUsageService].[ServiceComment] AS [ServiceComment], 
+    [vwServiceUsageService].[ServiceCreationDate] AS [ServiceCreationDate], 
+    [vwServiceUsageService].[ServicePrice] AS [ServicePrice], 
+    [vwServiceUsageService].[ServiceUsagesCount] AS [ServiceUsagesCount]
+    FROM [dbo].[vwServiceUsageService] AS [vwServiceUsageService]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwUserAccountUserType" EntityType="Self.vwUserAccountUserType" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwUserAccountUserType].[UserId] AS [UserId], 
+    [vwUserAccountUserType].[Login] AS [Login], 
+    [vwUserAccountUserType].[Password] AS [Password], 
+    [vwUserAccountUserType].[Blocked] AS [Blocked], 
+    [vwUserAccountUserType].[CreationDate] AS [CreationDate], 
+    [vwUserAccountUserType].[FullName] AS [FullName], 
+    [vwUserAccountUserType].[PassportNumber] AS [PassportNumber], 
+    [vwUserAccountUserType].[Address] AS [Address], 
+    [vwUserAccountUserType].[HomePhone] AS [HomePhone], 
+    [vwUserAccountUserType].[WorkPhone] AS [WorkPhone], 
+    [vwUserAccountUserType].[MobilePhone] AS [MobilePhone], 
+    [vwUserAccountUserType].[WebPage] AS [WebPage], 
+    [vwUserAccountUserType].[ICQ] AS [ICQ], 
+    [vwUserAccountUserType].[Email] AS [Email], 
+    [vwUserAccountUserType].[TypeId] AS [TypeId], 
+    [vwUserAccountUserType].[TypeName] AS [TypeName], 
+    [vwUserAccountUserType].[TypeComment] AS [TypeComment], 
+    [vwUserAccountUserType].[AccountId] AS [AccountId], 
+    [vwUserAccountUserType].[AccountPersonalAccount] AS [AccountPersonalAccount], 
+    [vwUserAccountUserType].[AccountBalance] AS [AccountBalance], 
+    [vwUserAccountUserType].[AccountRecommendedPayment] AS [AccountRecommendedPayment], 
+    [vwUserAccountUserType].[AccountCredit] AS [AccountCredit]
+    FROM [dbo].[vwUserAccountUserType] AS [vwUserAccountUserType]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblServiceUsage_tblService" Association="Self.FK_tblServiceUsage_tblService">
+            <End Role="tblServiceUsage" EntitySet="tblServiceUsage" />
+            <End Role="tblServiceUsage1" EntitySet="tblServiceUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceUsage_tblUser" Association="Self.FK_tblServiceUsage_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblServiceUsage" EntitySet="tblServiceUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblAccount" Association="Self.FK_tblUser_tblAccount">
+            <End Role="tblAccount" EntitySet="tblAccount" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblUserType" Association="Self.FK_tblUser_tblUserType">
+            <End Role="tblUserType" EntitySet="tblUserType" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InternetUserAccountModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="InternetUserAccountEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAccount" EntityType="InternetUserAccountModel.tblAccount" />
+          <EntitySet Name="tblService" EntityType="InternetUserAccountModel.tblService" />
+          <EntitySet Name="tblServiceUsage" EntityType="InternetUserAccountModel.tblServiceUsage" />
+          <EntitySet Name="tblUser" EntityType="InternetUserAccountModel.tblUser" />
+          <EntitySet Name="tblUserType" EntityType="InternetUserAccountModel.tblUserType" />
+          <EntitySet Name="vwServiceUsageService" EntityType="InternetUserAccountModel.vwServiceUsageService" />
+          <EntitySet Name="vwUserAccountUserType" EntityType="InternetUserAccountModel.vwUserAccountUserType" />
+          <AssociationSet Name="FK_tblUser_tblAccount" Association="InternetUserAccountModel.FK_tblUser_tblAccount">
+            <End Role="tblAccount" EntitySet="tblAccount" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceUsage_tblService" Association="InternetUserAccountModel.FK_tblServiceUsage_tblService">
+            <End Role="tblServiceUsage" EntitySet="tblServiceUsage" />
+            <End Role="tblServiceUsage1" EntitySet="tblServiceUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceUsage_tblUser" Association="InternetUserAccountModel.FK_tblServiceUsage_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblServiceUsage" EntitySet="tblServiceUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblUserType" Association="InternetUserAccountModel.FK_tblUser_tblUserType">
+            <End Role="tblUserType" EntitySet="tblUserType" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+          <FunctionImport Name="prcServiceUsage" ReturnType="Collection(InternetUserAccountModel.prcServiceUsage_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="onlyUsersWithUsageNow" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="prcUserAccountServiceUsage" ReturnType="Collection(InternetUserAccountModel.prcUserAccountServiceUsage_Result)">
+            <Parameter Name="userType" Mode="In" Type="Int32" />
+            <Parameter Name="onlyUsersWithUsageNow" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="tblAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PersonalAccount" Type="Int64" Nullable="false" />
+          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <Property Name="RecommendedPayment" Type="Int32" Nullable="false" />
+          <Property Name="Credit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblUser" Relationship="InternetUserAccountModel.FK_tblUser_tblAccount" FromRole="tblAccount" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ShortTariffName" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="UsagesCount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblServiceUsage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="User" Type="Int32" Nullable="false" />
+          <Property Name="Service" Type="Int32" Nullable="false" />
+          <Property Name="BeginUsage" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndUsage" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="TotalPayment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblServiceUsage1" Relationship="InternetUserAccountModel.FK_tblServiceUsage_tblService" FromRole="tblServiceUsage" ToRole="tblServiceUsage1" />
+          <NavigationProperty Name="tblServiceUsage2" Relationship="InternetUserAccountModel.FK_tblServiceUsage_tblService" FromRole="tblServiceUsage1" ToRole="tblServiceUsage" />
+          <NavigationProperty Name="tblUser" Relationship="InternetUserAccountModel.FK_tblServiceUsage_tblUser" FromRole="tblServiceUsage" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="Blocked" Type="Boolean" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="WebPage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ICQ" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAccount" Relationship="InternetUserAccountModel.FK_tblUser_tblAccount" FromRole="tblUser" ToRole="tblAccount" />
+          <NavigationProperty Name="tblServiceUsage" Relationship="InternetUserAccountModel.FK_tblServiceUsage_tblUser" FromRole="tblUser" ToRole="tblServiceUsage" />
+          <NavigationProperty Name="tblUserType" Relationship="InternetUserAccountModel.FK_tblUser_tblUserType" FromRole="tblUser" ToRole="tblUserType" />
+        </EntityType>
+        <EntityType Name="tblUserType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblUser" Relationship="InternetUserAccountModel.FK_tblUser_tblUserType" FromRole="tblUserType" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="vwServiceUsageService">
+          <Key>
+            <PropertyRef Name="ServiceUsageId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="BeginUsage" />
+            <PropertyRef Name="EndUsage" />
+            <PropertyRef Name="TotalPayment" />
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="ServiceShortTariffName" />
+            <PropertyRef Name="ServiceComment" />
+            <PropertyRef Name="ServiceCreationDate" />
+            <PropertyRef Name="ServicePrice" />
+            <PropertyRef Name="ServiceUsagesCount" />
+          </Key>
+          <Property Name="ServiceUsageId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="BeginUsage" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndUsage" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="TotalPayment" Type="Int32" Nullable="false" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceShortTariffName" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceComment" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceCreationDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ServicePrice" Type="Int32" Nullable="false" />
+          <Property Name="ServiceUsagesCount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwUserAccountUserType">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Blocked" />
+            <PropertyRef Name="CreationDate" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PassportNumber" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="MobilePhone" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="TypeId" />
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="TypeComment" />
+            <PropertyRef Name="AccountId" />
+            <PropertyRef Name="AccountPersonalAccount" />
+            <PropertyRef Name="AccountBalance" />
+            <PropertyRef Name="AccountRecommendedPayment" />
+            <PropertyRef Name="AccountCredit" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Blocked" Type="Boolean" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="WebPage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ICQ" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="TypeComment" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="AccountPersonalAccount" Type="Int64" Nullable="false" />
+          <Property Name="AccountBalance" Type="Int32" Nullable="false" />
+          <Property Name="AccountRecommendedPayment" Type="Int32" Nullable="false" />
+          <Property Name="AccountCredit" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblUser_tblAccount">
+          <End Type="InternetUserAccountModel.tblAccount" Role="tblAccount" Multiplicity="0..1" />
+          <End Type="InternetUserAccountModel.tblUser" Role="tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceUsage_tblService">
+          <End Type="InternetUserAccountModel.tblServiceUsage" Role="tblServiceUsage" Multiplicity="1" />
+          <End Type="InternetUserAccountModel.tblServiceUsage" Role="tblServiceUsage1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceUsage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblServiceUsage1">
+              <PropertyRef Name="Service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceUsage_tblUser">
+          <End Type="InternetUserAccountModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="InternetUserAccountModel.tblServiceUsage" Role="tblServiceUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblServiceUsage">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblUserType">
+          <End Type="InternetUserAccountModel.tblUserType" Role="tblUserType" Multiplicity="1" />
+          <End Type="InternetUserAccountModel.tblUser" Role="tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUserType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="prcServiceUsage_Result">
+          <Property Type="Int32" Name="ServiceUsageId" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="BeginUsage" Nullable="false" />
+          <Property Type="DateTime" Name="EndUsage" Nullable="false" />
+          <Property Type="Int32" Name="TotalPayment" Nullable="false" />
+          <Property Type="Int32" Name="ServiceId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="ServiceShortTariffName" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="ServiceComment" Nullable="false" MaxLength="256" />
+          <Property Type="DateTime" Name="ServiceCreationDate" Nullable="false" />
+          <Property Type="Int32" Name="ServicePrice" Nullable="false" />
+          <Property Type="Int32" Name="ServiceUsagesCount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="prcUserAccountServiceUsage_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="32" />
+          <Property Type="Boolean" Name="Blocked" Nullable="false" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="PassportNumber" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="HomePhone" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="WorkPhone" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="MobilePhone" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="WebPage" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ICQ" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="32" />
+          <Property Type="Int32" Name="TypeId" Nullable="false" />
+          <Property Type="String" Name="TypeName" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="TypeComment" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="AccountId" Nullable="false" />
+          <Property Type="Int64" Name="AccountPersonalAccount" Nullable="false" />
+          <Property Type="Int32" Name="AccountBalance" Nullable="false" />
+          <Property Type="Int32" Name="AccountRecommendedPayment" Nullable="false" />
+          <Property Type="Int32" Name="AccountCredit" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище InternetUserAccountModelContainer" CdmEntityContainer="InternetUserAccountEntities">
+          <EntitySetMapping Name="tblAccount">
+            <EntityTypeMapping TypeName="InternetUserAccountModel.tblAccount">
+              <MappingFragment StoreEntitySet="tblAccount">
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="RecommendedPayment" ColumnName="RecommendedPayment" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="PersonalAccount" ColumnName="PersonalAccount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblService">
+            <EntityTypeMapping TypeName="InternetUserAccountModel.tblService">
+              <MappingFragment StoreEntitySet="tblService">
+                <ScalarProperty Name="UsagesCount" ColumnName="UsagesCount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ShortTariffName" ColumnName="ShortTariffName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblServiceUsage">
+            <EntityTypeMapping TypeName="InternetUserAccountModel.tblServiceUsage">
+              <MappingFragment StoreEntitySet="tblServiceUsage">
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="EndUsage" ColumnName="EndUsage" />
+                <ScalarProperty Name="BeginUsage" ColumnName="BeginUsage" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUser">
+            <EntityTypeMapping TypeName="InternetUserAccountModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ICQ" ColumnName="ICQ" />
+                <ScalarProperty Name="WebPage" ColumnName="WebPage" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserType">
+            <EntityTypeMapping TypeName="InternetUserAccountModel.tblUserType">
+              <MappingFragment StoreEntitySet="tblUserType">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwServiceUsageService">
+            <EntityTypeMapping TypeName="InternetUserAccountModel.vwServiceUsageService">
+              <MappingFragment StoreEntitySet="vwServiceUsageService">
+                <ScalarProperty Name="ServiceUsagesCount" ColumnName="ServiceUsagesCount" />
+                <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+                <ScalarProperty Name="ServiceCreationDate" ColumnName="ServiceCreationDate" />
+                <ScalarProperty Name="ServiceComment" ColumnName="ServiceComment" />
+                <ScalarProperty Name="ServiceShortTariffName" ColumnName="ServiceShortTariffName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="EndUsage" ColumnName="EndUsage" />
+                <ScalarProperty Name="BeginUsage" ColumnName="BeginUsage" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ServiceUsageId" ColumnName="ServiceUsageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwUserAccountUserType">
+            <EntityTypeMapping TypeName="InternetUserAccountModel.vwUserAccountUserType">
+              <MappingFragment StoreEntitySet="vwUserAccountUserType">
+                <ScalarProperty Name="AccountCredit" ColumnName="AccountCredit" />
+                <ScalarProperty Name="AccountRecommendedPayment" ColumnName="AccountRecommendedPayment" />
+                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+                <ScalarProperty Name="AccountPersonalAccount" ColumnName="AccountPersonalAccount" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="TypeComment" ColumnName="TypeComment" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ICQ" ColumnName="ICQ" />
+                <ScalarProperty Name="WebPage" ColumnName="WebPage" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="prcServiceUsage" FunctionName="Хранилище InternetUserAccountModel.prcServiceUsage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InternetUserAccountModel.prcServiceUsage_Result">
+                <ScalarProperty Name="ServiceUsageId" ColumnName="ServiceUsageId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="BeginUsage" ColumnName="BeginUsage" />
+                <ScalarProperty Name="EndUsage" ColumnName="EndUsage" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ServiceShortTariffName" ColumnName="ServiceShortTariffName" />
+                <ScalarProperty Name="ServiceComment" ColumnName="ServiceComment" />
+                <ScalarProperty Name="ServiceCreationDate" ColumnName="ServiceCreationDate" />
+                <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+                <ScalarProperty Name="ServiceUsagesCount" ColumnName="ServiceUsagesCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="prcUserAccountServiceUsage" FunctionName="Хранилище InternetUserAccountModel.prcUserAccountServiceUsage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InternetUserAccountModel.prcUserAccountServiceUsage_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="WebPage" ColumnName="WebPage" />
+                <ScalarProperty Name="ICQ" ColumnName="ICQ" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeComment" ColumnName="TypeComment" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="AccountPersonalAccount" ColumnName="AccountPersonalAccount" />
+                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+                <ScalarProperty Name="AccountRecommendedPayment" ColumnName="AccountRecommendedPayment" />
+                <ScalarProperty Name="AccountCredit" ColumnName="AccountCredit" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

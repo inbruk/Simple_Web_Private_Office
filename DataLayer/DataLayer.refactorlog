@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="069b7259-9f1c-4468-aa86-e917c6fb3687" ChangeDateTime="05/30/2019 23:31:22">
+    <Property Name="ElementName" Value="[dbo].[tblUserType].[Login]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblUserType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4fdecc87-355a-49ae-afbb-9ddfc68f1967" ChangeDateTime="05/30/2019 23:31:30">
+    <Property Name="ElementName" Value="[dbo].[tblUserType].[Password]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblUserType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Comment" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fafb819f-0610-4112-889d-7ef64401572b" ChangeDateTime="05/30/2019 23:56:24">
+    <Property Name="ElementName" Value="[dbo].[tblUser].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Password" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1258bb82-8a11-4228-aa6c-b43e9cbe042c" ChangeDateTime="05/31/2019 00:39:49">
+    <Property Name="ElementName" Value="[dbo].[tblPersonalAccount].[credit]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblPersonalAccount]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Credit" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7df868cc-7422-4f0e-83f9-bf43c718e63a" ChangeDateTime="05/31/2019 02:48:06">
+    <Property Name="ElementName" Value="[dbo].[tblService].[TariffName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblService]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Price" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d0e735a4-29c0-49d4-a8eb-9c537d64a530" ChangeDateTime="05/31/2019 03:15:56">
+    <Property Name="ElementName" Value="[dbo].[tblServiceUsage].[Price]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblServiceUsage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BeginUsage" />
+  </Operation>
+</Operations>

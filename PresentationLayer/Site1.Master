@@ -1,0 +1,44 @@
+﻿<%@ Master Language="C#" AutoEventWireup                                                                            ="true" CodeBehind="Site1.master.cs" Inherits="PresentationLayer.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title> Онлайн кабинет пользователя интернет </title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="width:1280px;">
+            <div style="background-color: darkcyan; width:1260px; height: 80px; color: white; padding:10px;" >
+                 <div style="text-align:left;width:100%;height:40px;">
+                     <span style="font-weight: bold; font-size:35px; font-family: Tahoma">
+                         <asp:Label ID="lblTitle" runat="server" ></asp:Label>
+                     </span>
+                 </div>
+             <br>
+                 <div style="text-align:right;width:100%;height:30px;">
+                     <span style="font-weight: normal; font-size:20px; font-family:'Times New Roman'">
+                         <asp:Label ID="lblUser" runat="server" ></asp:Label>
+                         &nbsp;&nbsp;&nbsp;
+                         <asp:Button ID="btnLogout" Text="Выйти" runat="server" OnClick="btnLogout_Click" />
+                     </span>
+                 </div>
+            </div>
+
+            <div style="width:1280px;height:520px;font-family:'Times New Roman'"> 
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1"  runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <div style="background-color: darkcyan; width:1260px; height: 30px; color: white; padding:10px;" >
+                 <div style="text-align:center;width:100%;height:20px;">
+                     <span style="font-weight:normal; font-size:20px; font-family:'Times New Roman'">
+                         <em>Copyright © 2019</em>
+                     </span>
+                 </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a44d35215974d36bcda08e5bdd64e25" Name="Diagram1">
+        <EntityTypeShape EntityType="InternetUserAccountModel.tblAccount" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="InternetUserAccountModel.tblService" Width="1.5" PointX="5.75" PointY="7" />
+        <EntityTypeShape EntityType="InternetUserAccountModel.tblServiceUsage" Width="1.5" PointX="5.25" PointY="3.25" />
+        <EntityTypeShape EntityType="InternetUserAccountModel.tblUser" Width="1.5" PointX="3" PointY="2.25" />
+        <EntityTypeShape EntityType="InternetUserAccountModel.tblUserType" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InternetUserAccountModel.vwServiceUsageService" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="InternetUserAccountModel.vwUserAccountUserType" Width="1.5" PointX="2.75" PointY="8" />
+        <AssociationConnector Association="InternetUserAccountModel.FK_tblUser_tblAccount" />
+        <AssociationConnector Association="InternetUserAccountModel.FK_tblServiceUsage_tblService" />
+        <AssociationConnector Association="InternetUserAccountModel.FK_tblServiceUsage_tblUser" />
+        <AssociationConnector Association="InternetUserAccountModel.FK_tblUser_tblUserType" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
